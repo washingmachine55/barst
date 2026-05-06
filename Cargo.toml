@@ -1,0 +1,11 @@
+[package]
+name = "barst"
+homepage = "https://github.com/washingmachine55"
+version = "0.1.260506"
+edition = "2024"
+
+[dependencies]
+
+[dependencies.clap]
+version = "4.6.1"
+features = ["derive"]
