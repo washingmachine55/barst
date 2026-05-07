@@ -62,11 +62,7 @@ enum GitSubcommands {
 }
 
 fn main() {
-    let result = read_config_file::get_config_file();
-    match result {
-        Ok(()) => println!("Success!"),
-        Err(e) => println!("Error occurred: {}", e),
-    }
+    let _result = read_config_file::get_config_file();
     let cli = Cli::parse();
 
     if cli.verbose {

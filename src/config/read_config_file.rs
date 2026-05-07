@@ -14,10 +14,25 @@ pub fn get_config_file() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[test]
+fn test_config_values() {
+    let vals: MyConfig = confy::load("barst", "config").expect("failed");
+    assert!(vals.verbosity == "DEBUG", "Expected Verbosity to Debug, but got {}", vals.verbosity);
+}
+
+fn config_values() -> MyConfig {
+    let vals: MyConfig = confy::load("barst", "config").expect("failed");
+    return vals;
+}
+
+#[test]
 fn check_config_file() {
     let result = get_config_file();
     match result {
         Ok(()) => println!("Success!"),
-        Err(e) => println!("Error occurred: {}", e),
+        Err(e) => {
+            println!("Error occurred: {}", e)
+        },
     }
+    let vals = config_values();
+    println!("data: {}", vals.verbosity)
 }
