@@ -1,1 +1,1 @@
-pub(crate) mod read_config_file;
+pub mod read_config_file;

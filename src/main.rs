@@ -1,7 +1,5 @@
-mod config;
-use crate::config::read_config_file;
 use clap::{Parser, Subcommand};
-
+use barst::config;
 /// Simple program to greet a person
 #[derive(Parser)]
 #[command(name = "BARST")]
@@ -37,6 +35,12 @@ enum Commands {
     /// Context for sessions
     #[command(subcommand)]
     Context(GitSubcommands),
+
+    Config {
+        /// Check config values
+        #[arg(short, long)]
+        status: bool,
+    },
 }
 
 #[derive(Subcommand)]
@@ -62,7 +66,7 @@ enum GitSubcommands {
 }
 
 fn main() {
-    let _result = read_config_file::get_config_file();
+    // let _result = config::read_config_file::get_config_file();
     let cli = Cli::parse();
 
     if cli.verbose {
@@ -72,7 +76,11 @@ fn main() {
     match &cli.command {
         Commands::Context(git_subs) => match git_subs {
             GitSubcommands::Git { create  , collect: _, cmd: _,  status: _   } => println!("Creating storage file... {}", create.to_string()),
-        }
+        },
+        Commands::Config { status: _ } => {
+            let vals = config::read_config_file::config_values();
+            println!("Priting Config values... {}", vals.db_url);
+        },
     }
 }
 #[test]

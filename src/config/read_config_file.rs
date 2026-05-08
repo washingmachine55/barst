@@ -1,10 +1,10 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Serialize, Deserialize)]
-struct MyConfig {
-    db_url: String,
-    verbosity: String,
-    git_config_path: String
+pub struct MyConfig {
+    pub db_url: String,
+    pub verbosity: String,
+    pub git_config_path: String
 }
 
 pub fn get_config_file() -> Result<(), Box<dyn std::error::Error>> {
@@ -19,7 +19,7 @@ fn test_config_values() {
     assert!(vals.verbosity == "DEBUG", "Expected Verbosity to Debug, but got {}", vals.verbosity);
 }
 
-fn config_values() -> MyConfig {
+pub fn config_values() -> MyConfig {
     let vals: MyConfig = confy::load("barst", "config").expect("failed");
     return vals;
 }
